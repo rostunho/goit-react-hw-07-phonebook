@@ -20,3 +20,5 @@ export default combineReducers({
   items: itemsReducer,
   filter: filterReducer,
 });
+
+// console.log(promise);
