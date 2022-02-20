@@ -2,9 +2,11 @@ import PropTypes from 'prop-types';
 import { Card, Info, Name, Number, DeleteButton } from './Contact.styled';
 import { CgProfile } from 'react-icons/cg';
 import { IoMdRemove } from 'react-icons/io';
+import { useRemoveContactMutation } from 'redux/contacts/contactsSlice';
 
-function Contact({ contact, deleteContact }) {
+function Contact({ contact }) {
   const { id, name, number } = contact;
+  const [removeContact] = useRemoveContactMutation();
 
   return (
     <Card>
@@ -17,7 +19,7 @@ function Contact({ contact, deleteContact }) {
 
       <DeleteButton
         type="button"
-        onClick={() => deleteContact(id)}
+        onClick={() => removeContact(id)}
         aria-label="Remove contact"
       >
         <IoMdRemove size="25px" color="#fff" />

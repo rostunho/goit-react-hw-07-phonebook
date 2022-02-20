@@ -5,14 +5,36 @@ export const contactsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://620a06cf92946600171c56d7.mockapi.io',
   }),
+
+  tagTypes: ['Contact'],
+
+  endpoints: builder => ({
+    fetchContacts: builder.query({
+      query: () => '/items',
+      providesTags: ['Contact'],
+    }),
+
+    removeContact: builder.mutation({
+      query: id => ({
+        url: `/items/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Contact'],
+    }),
+
+    addNewContact: builder.mutation({
+      query: newContact => ({
+        url: '/items',
+        method: 'POST',
+        body: newContact,
+      }),
+      invalidatesTags: ['Contact'],
+    }),
+  }),
 });
 
-// createApi({
-//   reducerPath: 'pokemonApi',
-//   baseQuery: fetchBaseQuery({ baseUrl: 'https://pokeapi.co/api/v2/' }),
-//   endpoints: (builder) => ({
-//     getPokemonByName: builder.query<Pokemon, string>({
-//       query: (name) => `pokemon/${name}`,
-//     }),
-//   }),
-// })
+export const {
+  useFetchContactsQuery,
+  useAddNewContactMutation,
+  useRemoveContactMutation,
+} = contactsApi;

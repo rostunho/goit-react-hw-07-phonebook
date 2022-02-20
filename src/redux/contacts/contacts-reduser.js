@@ -1,24 +1,19 @@
-import { createReducer, combineReducers } from '@reduxjs/toolkit';
-import {
-  addNewContactAction,
-  removeContactAction,
-  filterAction,
-} from './contacts-actions';
-import defaultContacts from '../../database/default-contacts.json';
+import { createReducer } from '@reduxjs/toolkit';
+import { filterAction } from './contacts-actions';
+// import { contactsApi } from './contactsSlice';
+// import defaultContacts from '../../database/default-contacts.json';
 
-const itemsReducer = createReducer(defaultContacts, {
-  [addNewContactAction]: (state, { payload }) => [payload, ...state],
-  [removeContactAction]: (state, { payload }) =>
-    state.filter(({ id }) => id !== payload),
-});
+// const itemsReducer = createReducer(defaultContacts, {
+//   [addNewContactAction]: (state, { payload }) => [payload, ...state],
+//   [removeContactAction]: (state, { payload }) =>
+//     state.filter(({ id }) => id !== payload),
+// });
 
-const filterReducer = createReducer('', {
+export const filterReducer = createReducer('', {
   [filterAction]: (_, { payload }) => payload,
 });
 
-export default combineReducers({
-  items: itemsReducer,
-  filter: filterReducer,
-});
-
-// console.log(promise);
+// export const contactsReducer = combineReducers({
+//   [contactsApi.reducerPath]: contactsApi.reducer,
+//   filter: filterReducer,
+// });

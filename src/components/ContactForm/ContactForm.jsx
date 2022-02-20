@@ -1,50 +1,58 @@
 import { useState } from 'react';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import toast from 'react-hot-toast';
-import { useSelector, useDispatch } from 'react-redux';
-import { addNewContactAction } from '../../redux/contacts/contacts-actions';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { addNewContactAction } from '../../redux/contacts/contacts-actions';
 import { Form, Label, Input, AddButton } from './ContactForm.styled';
+import {
+  useFetchContactsQuery,
+  useAddNewContactMutation,
+} from 'redux/contacts/contactsSlice';
 
 function ContactForm() {
-  const [newContact, setNewContact] = useState({
-    name: '',
-    number: '',
-  });
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const { data } = useFetchContactsQuery();
+  const { addNewContact } = useAddNewContactMutation();
 
-  const contacts = useSelector(state => state.contacts.items);
-
-  const dispatch = useDispatch();
+  console.log(data);
 
   function handleInput(event) {
     const { name, value } = event.target;
-    setNewContact(prevContact => ({ ...prevContact, [name]: value }));
+
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+
+      case 'phone':
+        setPhone(value);
+        break;
+
+      default:
+        return;
+    }
   }
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    const { name, number } = newContact;
-    const contactUpdating = {
-      id: nanoid(5),
+    const newContact = {
       name,
-      number,
+      phone,
     };
 
-    addNewContact(contactUpdating);
-    setNewContact({ name: '', number: '' });
-  }
-
-  function addNewContact(newContact) {
-    const unUniqueContact = contacts.some(
+    const unUniqueContact = data.some(
       contact => contact.name.toLowerCase() === newContact.name.toLowerCase(),
     );
 
     if (unUniqueContact) {
-      toast.error(`"${newContact.name}" is already in contacts`);
-    } else {
-      dispatch(addNewContactAction(newContact));
-      toast.success(`"${newContact.name}" added to your contacts`);
+      toast.error(`"${name}" is already in contacts`);
     }
+
+    addNewContact(newContact);
+    setName('');
+    setPhone('');
   }
 
   return (
@@ -54,7 +62,7 @@ function ContactForm() {
         <Input
           type="text"
           name="name"
-          value={newContact.name}
+          value={name}
           onChange={handleInput}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
@@ -65,15 +73,14 @@ function ContactForm() {
         Number
         <Input
           type="tel"
-          name="number"
-          value={newContact.number}
+          name="phone"
+          value={phone}
           onChange={handleInput}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
         />
       </Label>
-
       <AddButton type="submit">Add contact</AddButton>
     </Form>
   );

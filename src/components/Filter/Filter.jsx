@@ -4,7 +4,7 @@ import { filterAction } from '../../redux/contacts/contacts-actions';
 import { FilterBox, FilterInput } from './Filter.styled';
 
 function Filter({ placeholder }) {
-  const filter = useSelector(state => state.contacts.filter);
+  const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
   function handleFilter(event) {
