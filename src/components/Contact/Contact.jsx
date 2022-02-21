@@ -30,7 +30,6 @@ function Contact({ contact }) {
 
 Contact.propTypes = {
   contact: PropTypes.object.isRequired,
-  deleteContact: PropTypes.func.isRequired,
 };
 
 export default Contact;

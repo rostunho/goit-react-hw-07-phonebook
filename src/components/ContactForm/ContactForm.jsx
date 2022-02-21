@@ -13,9 +13,11 @@ function ContactForm() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const { data } = useFetchContactsQuery();
-  const { addNewContact } = useAddNewContactMutation();
+  const [addNewContact] = useAddNewContactMutation();
 
   console.log(data);
+  console.log(addNewContact);
+  console.log(useAddNewContactMutation);
 
   function handleInput(event) {
     const { name, value } = event.target;
@@ -34,6 +36,11 @@ function ContactForm() {
     }
   }
 
+  function clearForm() {
+    setName('');
+    setPhone('');
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -48,11 +55,12 @@ function ContactForm() {
 
     if (unUniqueContact) {
       toast.error(`"${name}" is already in contacts`);
+      clearForm();
+      return;
     }
 
     addNewContact(newContact);
-    setName('');
-    setPhone('');
+    clearForm();
   }
 
   return (
