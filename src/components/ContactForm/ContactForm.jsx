@@ -36,11 +36,6 @@ function ContactForm() {
     }
   }
 
-  function clearForm() {
-    setName('');
-    setPhone('');
-  }
-
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -60,7 +55,13 @@ function ContactForm() {
     }
 
     addNewContact(newContact);
+    toast.success(`"${name}" added to your contacts`);
     clearForm();
+  }
+
+  function clearForm() {
+    setName('');
+    setPhone('');
   }
 
   return (

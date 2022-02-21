@@ -6,7 +6,6 @@ import { useFetchContactsQuery } from '../../redux/contacts/contactsSlice';
 
 function ContactList() {
   const { data } = useFetchContactsQuery();
-  console.log(data);
 
   // const filter = useSelector(state => state.filter);
 
