@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+// import { Bars } from 'react-loader-spinner';
 
 export const List = styled.ul`
   width: 480px;
@@ -9,4 +10,10 @@ export const List = styled.ul`
 
 export const Item = styled.li`
   margin-top: 1px;
+`;
+
+export const BarsBox = styled.div`
+  margin-left: 200px;
+
+  color: red;
 `;

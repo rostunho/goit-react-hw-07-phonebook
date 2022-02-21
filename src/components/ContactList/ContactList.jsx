@@ -1,11 +1,13 @@
 import Contact from 'components/Contact/Contact';
 import { useSelector } from 'react-redux';
+import { Bars } from 'react-loader-spinner';
+
 // import { removeContactAction } from '../../redux/contacts/contacts-actions';
-import { List, Item } from './ContactList.styled';
+import { List, Item, BarsBox } from './ContactList.styled';
 import { useFetchContactsQuery } from '../../redux/contacts/contactsSlice';
 
 function ContactList() {
-  const { data } = useFetchContactsQuery();
+  const { data, isFetching } = useFetchContactsQuery();
 
   const filter = useSelector(state => state.filter);
 
@@ -18,6 +20,11 @@ function ContactList() {
 
   return (
     <List>
+      {isFetching && (
+        <BarsBox>
+          <Bars color="var(--accent-color)" />
+        </BarsBox>
+      )}
       {data &&
         filteredContacts.map(contact => (
           <Item key={contact.id}>
