@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
-import { Card, Info, Name, Number, DeleteButton } from './Contact.styled';
 import { CgProfile } from 'react-icons/cg';
 import { IoMdRemove } from 'react-icons/io';
+import { Rings } from 'react-loader-spinner';
 import { useRemoveContactMutation } from 'redux/contacts/contactsSlice';
+import { Card, Info, Name, Number, DeleteButton } from './Contact.styled';
 
 function Contact({ contact }) {
   const { id, name, number } = contact;
-  const [removeContact] = useRemoveContactMutation();
+  const [removeContact, { isLoading }] = useRemoveContactMutation();
 
   return (
     <Card>
@@ -22,7 +23,11 @@ function Contact({ contact }) {
         onClick={() => removeContact(id)}
         aria-label="Remove contact"
       >
-        <IoMdRemove size="25px" color="#fff" />
+        {isLoading ? (
+          <Rings color="#ffffff" height={25} width={25} />
+        ) : (
+          <IoMdRemove size="25px" color="#fff" />
+        )}
       </DeleteButton>
     </Card>
   );
