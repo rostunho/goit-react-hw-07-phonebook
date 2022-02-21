@@ -6,7 +6,7 @@ import { useRemoveContactMutation } from 'redux/contacts/contactsSlice';
 import { Card, Info, Name, Number, DeleteButton } from './Contact.styled';
 
 function Contact({ contact }) {
-  const { id, name, number } = contact;
+  const { id, name, phone } = contact;
   const [removeContact, { isLoading }] = useRemoveContactMutation();
 
   return (
@@ -15,7 +15,7 @@ function Contact({ contact }) {
 
       <Info>
         <Name>{name} </Name>
-        <Number>{number}</Number>
+        <Number>{phone}</Number>
       </Info>
 
       <DeleteButton
