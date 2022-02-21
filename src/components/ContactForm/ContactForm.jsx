@@ -1,8 +1,5 @@
 import { useState } from 'react';
-// import { nanoid } from 'nanoid';
 import toast from 'react-hot-toast';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { addNewContactAction } from '../../redux/contacts/contacts-actions';
 import { Form, Label, Input, AddButton } from './ContactForm.styled';
 import {
   useFetchContactsQuery,
@@ -14,10 +11,6 @@ function ContactForm() {
   const [phone, setPhone] = useState('');
   const { data } = useFetchContactsQuery();
   const [addNewContact] = useAddNewContactMutation();
-
-  console.log(data);
-  console.log(addNewContact);
-  console.log(useAddNewContactMutation);
 
   function handleInput(event) {
     const { name, value } = event.target;

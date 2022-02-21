@@ -1,8 +1,6 @@
 import Contact from 'components/Contact/Contact';
 import { useSelector } from 'react-redux';
 import { Bars } from 'react-loader-spinner';
-
-// import { removeContactAction } from '../../redux/contacts/contacts-actions';
 import { List, Item, BarsBox } from './ContactList.styled';
 import { useFetchContactsQuery } from '../../redux/contacts/contactsSlice';
 
